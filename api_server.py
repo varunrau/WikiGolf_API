@@ -1,5 +1,5 @@
 import os
-import bottle
+from bottle import *
 from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, Sequence, String
 from sqlalchemy.ext.declarative import declarative_base

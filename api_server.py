@@ -1,7 +1,7 @@
 import os
 import bottle
 from bottle.ext import sqlalchemy
-import sqlalchemy
+from sqlalchemy import create_engine, Column, Integer, Sequence, String
 from sqlalchemy.ext.declarative import declarative_base
 
 app = bottle.Bottle()

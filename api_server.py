@@ -1,5 +1,5 @@
 import os
-from bottle import route, run, Bottle
+import bottle
 from bottle.ext import sqlalchemy
 
 app = bottle.Bottle()

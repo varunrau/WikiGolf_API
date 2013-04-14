@@ -39,7 +39,7 @@ class Path(Base):
     def __repr__(self):
         return "<Path(id: '%d', start_node: '%s', end_node: '%s', path: '%s')>" & (self.id, self.start_node, self.end_node, self.path)
 
-@app.get("/get/:node")
+@route("/get/:node", sqlalchemy=dict(keyword="db"))
 def node_value(node, db):
     start_path = db.query(Path).filter_by(start_node=node)
     end_path = db.query(Path).filter_by(end_node=node)

@@ -22,8 +22,6 @@ plugin = sqlalchemy.Plugin(
 
 app.install(plugin)
 
-db = sqlalchemy(app)
-
 @route("/")
 def hello_world():
     return "Hello, World!"

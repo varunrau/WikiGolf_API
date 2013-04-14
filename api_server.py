@@ -4,6 +4,7 @@ import bottle
 from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, Sequence, String
 from sqlalchemy.ext.declarative import declarative_base
+import json
 
 app = bottle.Bottle()
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
@@ -22,6 +23,30 @@ plugin = sqlalchemy.Plugin(
 )
 
 app.install(plugin)
+
+class Path(Base):
+    __tablename__ = "path"
+    id = Column(Integer, Sequence("id_seq"), primary_key=True)
+    start_node = Column(String)
+    end_node = Column(String)
+    path = Column(String)
+
+    def __init__(self, start_node, end_node, path):
+        self.start_node = start_node
+        self.end_node = end_node
+        self.path = path
+
+    def __repr__(self):
+        return "<Path(id: '%d', start_node: '%s', end_node: '%s', path: '%s')>" & (self.id, self.start_node, self.end_node, self.path)
+
+@app.get("/:node")
+def node_value(node, db):
+    start_path = db.query(Path).filter_by(start_node=node)
+    end_path = db.query(Path).filter_by(end_node=node)
+    data = start_node
+    data.append(end_path)
+    return data
+
 
 @route("/")
 def hello_world():

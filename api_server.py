@@ -1,6 +1,7 @@
 import os
 import bottle
 from bottle.ext import sqlalchemy
+import SQLAlchemy
 
 app = bottle.Bottle()
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]

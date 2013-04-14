@@ -43,9 +43,15 @@ class Path(Base):
 def node_value(node, db):
     start_path = db.query(Path).filter_by(start_node=node)
     end_path = db.query(Path).filter_by(end_node=node)
-    data = start_node
-    data.append(end_path)
-    return data
+    if start_path and end_path:
+        data = start_node
+        data.append(end_path)
+    if start_path:
+        return start_node
+    if end_path:
+        return end_path
+    else:
+        return "YOUR MOM"
 
 
 @route("/")

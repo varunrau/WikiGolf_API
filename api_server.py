@@ -38,7 +38,7 @@ class Path(Base):
     def __repr__(self):
         return "<Path(id: '%d', start_node: '%s', end_node: '%s', path: '%s')>" & (self.id, self.start_node, self.end_node, self.path)
 
-@app.get("/get", db)
+@app.get("/get")
 def node_value(db):
     node = "face"
     start_path = db.query(Path).filter_by(start_node=node)

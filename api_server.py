@@ -1,13 +1,12 @@
 import os
 from bottle import *
 import bottle
-from bottle.ext import sqlalchemy as sqlaplugin
+from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine, Column, Integer, Sequence, String
 from sqlalchemy.ext.declarative import declarative_base
 import json
 
 app = bottle.Bottle()
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
 database_url = os.environ["DATABASE_URL"]
 
 Base = declarative_base()
@@ -39,8 +38,9 @@ class Path(Base):
     def __repr__(self):
         return "<Path(id: '%d', start_node: '%s', end_node: '%s', path: '%s')>" & (self.id, self.start_node, self.end_node, self.path)
 
-@route("/get/:node", sqlalchemy=dict(keyword="db"))
-def node_value(node, db):
+@app.get("/get", db)
+def node_value(db):
+    node = "face"
     start_path = db.query(Path).filter_by(start_node=node)
     end_path = db.query(Path).filter_by(end_node=node)
     if start_path and end_path:
@@ -51,7 +51,7 @@ def node_value(node, db):
     if end_path:
         return end_path
     else:
-        return "YOUR MOM"
+        return "ERROR"
 
 
 @route("/")

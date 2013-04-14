@@ -1,11 +1,11 @@
 import os
 import bottle
 from bottle.ext import sqlalchemy
-import SQLAlchemy
+import sqlalchemy
 
 app = bottle.Bottle()
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
-db = SQLAlchemy(app)
+db = sqlalchemy(app)
 
 @route("/")
 def hello_world():

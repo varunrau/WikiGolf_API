@@ -1,5 +1,10 @@
 import os
 from bottle import route, run
+from bottle.ext import sqlalchemy
+
+app = bottle.app()
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
+db = SQLAlchemy(app)
 
 @route("/")
 def hello_world():

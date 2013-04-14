@@ -1,3 +1,4 @@
 bottle==0.10.7
 bottle-sqlalchemy
 sqlalchemy
+psycopg2
